@@ -33,10 +33,6 @@ subprojects {
         testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.1.0'
     }
 
-    test {
-        exclude '**/*IntegrationTest*'
-        useJUnitPlatform()
-    }
 
 }
 
