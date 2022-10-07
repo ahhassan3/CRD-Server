@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: server-.0.0.1
-          path: '$(System.DefaultWorkingDirectory)/build/libs/*.jar'
+          path: ./build/libs/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
