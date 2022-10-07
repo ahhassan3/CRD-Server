@@ -32,6 +32,8 @@ jobs:
           name: server-.0.0.1
           path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/*.jar'
 
+      -powershell: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server' -recurse
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
