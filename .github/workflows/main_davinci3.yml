@@ -3,6 +3,8 @@
 
 name: Build and deploy WAR app to Azure Web App - Davinci3
 
+-powershell: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server' -recurse
+
 on:
   push:
     branches:
@@ -32,7 +34,7 @@ jobs:
           name: server-.0.0.1
           path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/*.jar'
 
-      -powershell: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server' -recurse
+      
 
   deploy:
     runs-on: ubuntu-latest
