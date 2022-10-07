@@ -40,7 +40,7 @@ public class Application {
   @Autowired
   public CommandLineRunner setup() {
     return (args) -> {
-      fileStore.reload();
+      //fileStore.reload();
       RequirementsService.LoadLookup();
     };
   }
