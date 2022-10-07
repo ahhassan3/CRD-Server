@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: server-.0.0.1
-          path: CRD-Server/build/libs/*.jar'
+          path: CRD-Server/server/build/libs/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
