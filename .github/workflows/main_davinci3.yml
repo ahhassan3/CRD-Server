@@ -34,10 +34,9 @@ jobs:
           name: server-.0.0.1
           path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/*.jar'
 
-      - name: Azure PowerShell Action
-        uses: Azure/powershell@v1
-        with:
-          inlineScript: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server' -recurse
+      - name: TestScript
+        run: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server' -recurse
+        shell: pwsh
 
       
 
