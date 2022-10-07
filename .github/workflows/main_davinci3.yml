@@ -60,4 +60,4 @@ jobs:
           app-name: 'Davinci3'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B9E0A03336744D32BDBAABE2422C96E0 }}
-          package: '*.jar'
+          package: 'server-.0.0.1.jar'
