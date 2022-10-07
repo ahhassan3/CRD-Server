@@ -39,12 +39,9 @@ jobs:
         run: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server/server/build/libs' | Select FullName
         shell: pwsh
 
-      - task: PowerShell@2
-        inputs:
-          script: |
-            echo  '$(System.DefaultWorkingDirectory)'
-            dir
-            dir subfoldername
+      - name: TestScript
+        run: echo  '$(System.DefaultWorkingDirectory)'
+        shell: pwsh
       
 
   deploy:
