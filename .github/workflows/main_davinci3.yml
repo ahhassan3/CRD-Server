@@ -3,7 +3,10 @@
 
 name: Build and deploy WAR app to Azure Web App - Davinci3
 
--powershell: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server' -recurse
+- name: Azure PowerShell Action
+  uses: Azure/powershell@v1
+  with:
+    inlineScript: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server' -recurse
 
 on:
   push:
