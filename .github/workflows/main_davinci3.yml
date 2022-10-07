@@ -35,7 +35,7 @@ jobs:
           path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/*.jar'
 
       - name: TestScript
-        run: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server/server/build/libs'
+        run: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server/server/build/libs' | Select FullName
         shell: pwsh
 
       
