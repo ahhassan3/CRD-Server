@@ -1,3 +1,5 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "appService.defaultWebAppToDeploy": "/subscriptions/036039e9-2031-46db-8017-4d8813cc9fe4/AppServices/subscriptions/036039e9-2031-46db-8017-4d8813cc9fe4/resourceGroups/Davinci/providers/Microsoft.Web/sites/Davinci3",
+    "appService.deploySubpath": "."
 }
