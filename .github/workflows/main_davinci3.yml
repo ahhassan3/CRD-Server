@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: server-.0.0.1
-          path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/*.jar'
+          path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/server-0.0.1.jar'
 
       - name: TestScript
         run: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server/server/build/libs' | Select FullName
