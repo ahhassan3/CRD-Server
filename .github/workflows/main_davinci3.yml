@@ -21,8 +21,6 @@ jobs:
         with:
           java-version: '8'
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Build with Gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
@@ -31,7 +29,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: java-app
+          name: server-.0.0.1
           path: 'build/libs/*.jar'
 
   deploy:
@@ -45,7 +43,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: java-app
+          name: server-.0.0.1
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
