@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: PurgeArtifacts
-        with: kolpav/purge-artifacts-action@v1
-          token: ${{ secrets.GITHUB_TOKEN }}
-          expire-in: 0
+      # - name: PurgeArtifacts
+      #   with: kolpav/purge-artifacts-action@v1
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     expire-in: 0
 
       - uses: actions/checkout@v2
       
