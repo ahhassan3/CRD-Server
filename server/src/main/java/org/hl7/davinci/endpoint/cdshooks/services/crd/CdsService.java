@@ -1,5 +1,6 @@
 package org.hl7.davinci.endpoint.cdshooks.services.crd;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -9,7 +10,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.nio.file.Path;
 
 import org.apache.commons.lang.StringUtils;
 import org.cdshooks.*;
@@ -417,17 +421,18 @@ public abstract class CdsService<requestTypeT extends CdsRequest<?, ?>> {
     return link;
   }
 
-  public CoverageRequirements GetCoverageResponse(@Valid @RequestBody requestTypeT request) {
+  public CoverageRequirements GetCoverageResponse(@Valid @RequestBody requestTypeT request, HttpServletRequest httpServletRequest) {
     CoverageRequirements response = new CoverageRequirements();
-    // CdsResponse response = new CdsResponse();
-    // CardBuilder cardBuilder = new CardBuilder();
-    // CqlResultsForCard results = new CqlResultsForCard();
+    // setup lookup for first time use
+
     try{
+      //Path filePath = new File(httpServletRequest.getServletContext().getResource("/WEB-INF/BlueMassPARequirements.csv").getFile()).toPath();
+      Path filePath = GetResourcePath("BlueMassPARequirements.csv", httpServletRequest);
       RequirementsLookup PriorAuthLookupData = request.getRequirementsLookup();
       boolean isPARequired = RequirementsService.IsPriorAuthRequired(PriorAuthLookupData.InsuranceCompanyId, 
                                                                     PriorAuthLookupData.InsurancePlanId, 
                                                                     PriorAuthLookupData.InOutPatientStatus,
-                                                                    PriorAuthLookupData.StempCode);
+                                                                    PriorAuthLookupData.StempCode, filePath);
       // List<Link> smartAppLinks = new ArrayList<Link>();
       // Card card = cardBuilder.transform(CardTypes.PRIOR_AUTH, results, smartAppLinks);
       // card.addSuggestionsItem(cardBuilder.createSuggestionWithNote(card, results.getRequest(), fhirComponents, 
@@ -443,6 +448,21 @@ public abstract class CdsService<requestTypeT extends CdsRequest<?, ?>> {
     return response;
   }
 
+  private Path GetResourcePath(String resource, HttpServletRequest httpServletRequest){
+    try{
+      return new File(getClass().getClassLoader().getResource(resource).getFile()).toPath();
+    }
+    catch(Exception ex){
+      try {
+        return new File(httpServletRequest.getServletContext().getResource("/WEB-INF/" + resource).getFile()).toPath();
+      }
+      catch(Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
   // Implement these in child class
   public abstract List<CoverageRequirementRuleResult> createCqlExecutionContexts(requestTypeT request,
       FileStore fileStore, String baseUrl) throws RequestIncompleteException;

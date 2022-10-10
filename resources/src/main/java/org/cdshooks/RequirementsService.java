@@ -11,17 +11,16 @@ import java.nio.file.Path;
 
 public class RequirementsService {
   private static Logger logger = Logger.getLogger(RequirementsService.class.getName());
-  private static final Path LookupPath = new File(RequirementsService.class.getClassLoader().getResource("BlueMassPARequirements.csv").getFile()).toPath();
 
   public static List<RequirementsLookup> LookupResults;
   
   
   public static boolean IsPriorAuthRequired(int InsuranceCompanyId, int InsurancePlanId, 
-  int inpatientStatus, String stempCode){
+  int inpatientStatus, String stempCode, Path filePath){
     if(LookupResults == null || LookupResults.isEmpty())
     {
       try {
-        LoadLookup();
+        LoadLookup(filePath);
       } catch (IOException e) {
         logger.warning("Unable to load Lookup Requirements");
       }
@@ -38,11 +37,12 @@ public class RequirementsService {
     }
   }
 
-  public static void LoadLookup() throws IOException{
+  public static void LoadLookup(Path filePath) throws IOException{
+
     if(LookupResults == null || LookupResults.isEmpty()){
       LookupResults = new ArrayList<RequirementsLookup>();
       try (
-            Reader reader = Files.newBufferedReader(LookupPath);
+            Reader reader = Files.newBufferedReader(filePath);
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
         ) {
             for (CSVRecord csvRecord : csvParser) {

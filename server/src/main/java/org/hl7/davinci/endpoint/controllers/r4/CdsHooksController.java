@@ -91,6 +91,6 @@ public class CdsHooksController {
     if (request.getPrefetch() == null) {
       request.setPrefetch(new CrdPrefetch());
     }
-    return orderSignService.GetCoverageResponse(request);
+    return orderSignService.GetCoverageResponse(request, httpServletRequest);
   }
 }

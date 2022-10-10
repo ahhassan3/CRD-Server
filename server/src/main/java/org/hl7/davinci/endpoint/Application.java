@@ -41,7 +41,6 @@ public class Application {
   public CommandLineRunner setup() {
     return (args) -> {
       //fileStore.reload();
-      RequirementsService.LoadLookup();
     };
   }
 
