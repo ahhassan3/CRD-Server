@@ -42,7 +42,7 @@ public class RequirementsService {
 
     if(LookupResults == null || LookupResults.isEmpty()){
       LookupResults = new ArrayList<RequirementsLookup>();
-      ClassPathResource resource = new ClassPathResource("bluemassparequirements.csv");
+      ClassPathResource resource = new ClassPathResource("bluemassparequirement.csv");
       try (
             
             Reader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
