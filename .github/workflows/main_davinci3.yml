@@ -38,7 +38,7 @@ jobs:
         with:
           name: CRDServer
           path: '*/build/libs/CRDServer.jar'
-          ret
+          
           #path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/server-0.0.1.jar'
 
       - name: TestScript
