@@ -40,9 +40,9 @@ bootJar {
    archiveFileName = "app.${archiveExtension.get()}"
 }
 
-bootWar {
-    archiveFileName = "app.${archiveExtension.get()}"
-}
+// bootWar {
+//     archiveFileName = "app.${archiveExtension.get()}"
+// }
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
