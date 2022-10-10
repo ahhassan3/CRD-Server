@@ -39,6 +39,7 @@ import org.opencds.cqf.cql.engine.execution.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -426,13 +427,11 @@ public abstract class CdsService<requestTypeT extends CdsRequest<?, ?>> {
     // setup lookup for first time use
 
     try{
-      //Path filePath = new File(httpServletRequest.getServletContext().getResource("/WEB-INF/BlueMassPARequirements.csv").getFile()).toPath();
-      Path filePath = GetResourcePath("BlueMassPARequirements.csv", httpServletRequest);
       RequirementsLookup PriorAuthLookupData = request.getRequirementsLookup();
       boolean isPARequired = RequirementsService.IsPriorAuthRequired(PriorAuthLookupData.InsuranceCompanyId, 
                                                                     PriorAuthLookupData.InsurancePlanId, 
                                                                     PriorAuthLookupData.InOutPatientStatus,
-                                                                    PriorAuthLookupData.StempCode, filePath);
+                                                                    PriorAuthLookupData.StempCode);
       // List<Link> smartAppLinks = new ArrayList<Link>();
       // Card card = cardBuilder.transform(CardTypes.PRIOR_AUTH, results, smartAppLinks);
       // card.addSuggestionsItem(cardBuilder.createSuggestionWithNote(card, results.getRequest(), fhirComponents, 
@@ -448,21 +447,7 @@ public abstract class CdsService<requestTypeT extends CdsRequest<?, ?>> {
     return response;
   }
 
-  private Path GetResourcePath(String resource, HttpServletRequest httpServletRequest){
-    try{
-      return new File(getClass().getClassLoader().getResource(resource).getFile()).toPath();
-    }
-    catch(Exception ex){
-      try {
-        return new File(httpServletRequest.getServletContext().getResource("/WEB-INF/" + resource).getFile()).toPath();
-      }
-      catch(Exception e)
-      {
-        e.printStackTrace();
-      }
-    }
-    return null;
-  }
+
   // Implement these in child class
   public abstract List<CoverageRequirementRuleResult> createCqlExecutionContexts(requestTypeT request,
       FileStore fileStore, String baseUrl) throws RequestIncompleteException;

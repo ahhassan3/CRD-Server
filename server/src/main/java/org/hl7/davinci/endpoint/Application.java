@@ -1,5 +1,6 @@
 package org.hl7.davinci.endpoint;
 
+
 import org.cdshooks.RequirementsService;
 import org.hl7.davinci.endpoint.files.FileStore;
 import org.slf4j.Logger;
@@ -41,6 +42,7 @@ public class Application {
   public CommandLineRunner setup() {
     return (args) -> {
       //fileStore.reload();
+      RequirementsService.LoadLookup();
     };
   }
 

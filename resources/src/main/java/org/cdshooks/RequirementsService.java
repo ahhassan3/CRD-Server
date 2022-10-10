@@ -6,8 +6,9 @@ import java.util.logging.Logger;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import org.springframework.core.io.*;
+
+
 
 public class RequirementsService {
   private static Logger logger = Logger.getLogger(RequirementsService.class.getName());
@@ -16,11 +17,11 @@ public class RequirementsService {
   
   
   public static boolean IsPriorAuthRequired(int InsuranceCompanyId, int InsurancePlanId, 
-  int inpatientStatus, String stempCode, Path filePath){
+  int inpatientStatus, String stempCode){
     if(LookupResults == null || LookupResults.isEmpty())
     {
       try {
-        LoadLookup(filePath);
+        LoadLookup();
       } catch (IOException e) {
         logger.warning("Unable to load Lookup Requirements");
       }
@@ -37,12 +38,14 @@ public class RequirementsService {
     }
   }
 
-  public static void LoadLookup(Path filePath) throws IOException{
+  public static void LoadLookup() throws IOException{
 
     if(LookupResults == null || LookupResults.isEmpty()){
       LookupResults = new ArrayList<RequirementsLookup>();
+      ClassPathResource resource = new ClassPathResource("bluemassparequirements.csv");
       try (
-            Reader reader = Files.newBufferedReader(filePath);
+            
+            Reader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
         ) {
             for (CSVRecord csvRecord : csvParser) {
