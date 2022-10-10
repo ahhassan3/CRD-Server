@@ -16,6 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: PurgeArtifacts
+        with: kolpav/purge-artifacts-action@v1
+          token: ${{ secrets.GITHUB_TOKEN }}
+          expire-in: 0
+          
       - uses: actions/checkout@v2
       
       - name: Set up Java version
@@ -33,11 +38,14 @@ jobs:
         with:
           name: CRDServer
           path: '*/build/libs/CRDServer.jar'
+          ret
           #path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/server-0.0.1.jar'
 
       - name: TestScript
         run: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server/server/build/libs' | Select FullName
         shell: pwsh
+      
+
       
 
   deploy:
