@@ -12,38 +12,38 @@ on:
 
 jobs:
 
-  build:
-    runs-on: ubuntu-latest
+  # build:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      # - name: PurgeArtifacts
-      #   with: kolpav/purge-artifacts-action@v1
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     expire-in: 0
+  #   steps:
+  #     # - name: PurgeArtifacts
+  #     #   with: kolpav/purge-artifacts-action@v1
+  #     #     token: ${{ secrets.GITHUB_TOKEN }}
+  #     #     expire-in: 0
 
-      - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v2
       
-      - name: Set up Java version
-        uses: actions/setup-java@v1
-        with:
-          java-version: '8'
+  #     - name: Set up Java version
+  #       uses: actions/setup-java@v1
+  #       with:
+  #         java-version: '8'
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-        with:
-          arguments: build
+  #     - name: Build with Gradle
+  #       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+  #       with:
+  #         arguments: build
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: CRDServer
-          path: '*/build/libs/CRDServer.jar'
+  #     - name: Upload artifact for deployment job
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: CRDServer
+  #         path: '*/build/libs/CRDServer.jar'
           
-          #path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/server-0.0.1.jar'
+  #         #path: /home/runner/work/CRD-Server/CRD-Server/server/build/libs/server-0.0.1.jar'
 
-      - name: TestScript
-        run: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server/server/build/libs' | Select FullName
-        shell: pwsh
+  #     - name: TestScript
+  #       run: Get-ChildItem -Path '/home/runner/work/CRD-Server/CRD-Server/server/build/libs' | Select FullName
+  #       shell: pwsh
       
 
       
