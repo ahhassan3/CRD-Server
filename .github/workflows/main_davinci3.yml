@@ -20,7 +20,7 @@ jobs:
         with: kolpav/purge-artifacts-action@v1
           token: ${{ secrets.GITHUB_TOKEN }}
           expire-in: 0
-          
+
       - uses: actions/checkout@v2
       
       - name: Set up Java version
@@ -56,10 +56,10 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: CRDServer
+      # - name: Download artifact from build job
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: CRDServer
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -68,4 +68,4 @@ jobs:
           app-name: 'Davinci3'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B9E0A03336744D32BDBAABE2422C96E0 }}
-          package: '*.jar'
+          package: '*.war'
