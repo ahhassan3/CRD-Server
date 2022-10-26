@@ -431,7 +431,7 @@ public abstract class CdsService<requestTypeT extends CdsRequest<?, ?>> {
       boolean isPARequired = RequirementsService.IsPriorAuthRequired(PriorAuthLookupData.InsuranceCompanyId, 
                                                                     PriorAuthLookupData.InsurancePlanId, 
                                                                     PriorAuthLookupData.InOutPatientStatus,
-                                                                    PriorAuthLookupData.StempCode);
+                                                                    PriorAuthLookupData.StempCode, PriorAuthLookupData.PayerPlanName);
       // List<Link> smartAppLinks = new ArrayList<Link>();
       // Card card = cardBuilder.transform(CardTypes.PRIOR_AUTH, results, smartAppLinks);
       // card.addSuggestionsItem(cardBuilder.createSuggestionWithNote(card, results.getRequest(), fhirComponents, 

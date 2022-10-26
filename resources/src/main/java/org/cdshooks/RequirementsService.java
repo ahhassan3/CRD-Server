@@ -17,7 +17,7 @@ public class RequirementsService {
   
   
   public static boolean IsPriorAuthRequired(int InsuranceCompanyId, int InsurancePlanId, 
-  int inpatientStatus, String stempCode){
+  int inpatientStatus, String stempCode, String payerPlanName){
     if(LookupResults == null || LookupResults.isEmpty())
     {
       try {
@@ -27,14 +27,19 @@ public class RequirementsService {
       }
     }
     try{
-    boolean isPriorAuthRequired = LookupResults.stream().anyMatch(x -> (x.InOutPatientStatus == inpatientStatus &&
+    RequirementsLookup requirementFound = LookupResults.stream().filter(x -> (x.InOutPatientStatus == inpatientStatus &&
                                                                                         x.InsuranceCompanyId == InsuranceCompanyId &&
                                                                                         (x.InsurancePlanId == null || x.InsurancePlanId == InsurancePlanId) &&
-                                                                                        x.StempCode.equals(stempCode)));
-    return isPriorAuthRequired;
+                                                                                        x.StempCode.equals(stempCode) &&
+                                                                                        x.PayerPlanName.equals(payerPlanName))).findFirst().get();
+    if(requirementFound != null)
+    {
+      return requirementFound.IsPaRequired;
+    }
+    return true;
     }
     catch(Exception ex){
-      return false;
+      return true;
     }
   }
 
@@ -42,7 +47,7 @@ public class RequirementsService {
 
     if(LookupResults == null || LookupResults.isEmpty()){
       LookupResults = new ArrayList<RequirementsLookup>();
-      ClassPathResource resource = new ClassPathResource("bluemassparequirement.csv");
+      ClassPathResource resource = new ClassPathResource("bluemassparequirements.csv");
       try (
             
             Reader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
@@ -51,10 +56,12 @@ public class RequirementsService {
             for (CSVRecord csvRecord : csvParser) {
                 // Accessing Values by Column Index
                 RequirementsLookup lookupEntry = new RequirementsLookup();
-                lookupEntry.InsuranceCompanyId = parseIntOrNull(csvRecord.get(0)) ;
-                lookupEntry.InOutPatientStatus = Short.parseShort(csvRecord.get(1)) ;
-                lookupEntry.StempCode = csvRecord.get(2);
+                lookupEntry.StempCode = csvRecord.get(1);
+                lookupEntry.InsuranceCompanyId = parseIntOrNull(csvRecord.get(2));
                 lookupEntry.InsurancePlanId = parseIntOrNull(csvRecord.get(3));
+                lookupEntry.InOutPatientStatus = Short.parseShort(csvRecord.get(4));
+                lookupEntry.IsPaRequired = "1".equals(csvRecord.get(5));
+                lookupEntry.PayerPlanName = csvRecord.get(6);
                 LookupResults.add(lookupEntry);
             }
         }

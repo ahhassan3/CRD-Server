@@ -12,5 +12,10 @@ public class RequirementsLookup implements Serializable {
     public short InOutPatientStatus; 
     @JsonProperty("StempCode")
     public String StempCode;
+    @JsonProperty("IsPaRequired")
+    public Boolean IsPaRequired;
+    @JsonProperty("PayerPlanName")
+    public String PayerPlanName;
+
 }
 
