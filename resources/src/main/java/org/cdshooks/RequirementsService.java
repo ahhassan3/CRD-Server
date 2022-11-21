@@ -31,7 +31,7 @@ public class RequirementsService {
                                                                                         x.InsuranceCompanyId == InsuranceCompanyId &&
                                                                                         (x.InsurancePlanId == null || x.InsurancePlanId == InsurancePlanId) &&
                                                                                         x.StempCode.equals(stempCode) &&
-                                                                                        x.PayerPlanName.equals(payerPlanName))).findFirst().get();
+                                                                                        x.PayerPlanName.trim().toUpperCase().equals(payerPlanName.trim().toUpperCase()))).findFirst().get();
     if(requirementFound != null)
     {
       return requirementFound.IsPaRequired;
